@@ -30,6 +30,15 @@
                                 </select>
                             </div>
                             <div class="field">
+                                <label>Groups</label>
+
+                                <select name="groups[]" multiple="" class="ui dropdown">
+                                    @foreach(\App\Group::all() as $group)
+                                        <option value="{{$group->id}}">{{$group->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="field">
                                 <div class="field">
                                     <label>Order : </label>
                                     <input required type="number" placeholder="0" name="index" value="0">

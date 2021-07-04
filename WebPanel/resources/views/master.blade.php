@@ -127,6 +127,7 @@
         <a class="item" href="{{action("ServiceController@index")}}">Services</a>
         <a class="item" href="{{action("PropertyController@index")}}">Properties</a>
         <a class="item" href="{{action("ServerController@index")}}">Servers</a>
+        <a class="item" href="{{action("GroupController@index")}}">Groups</a>
         <a class="item" href="{{action("TagsController@index")}}">Tags</a>
         <a class="item" href="{{action("DeviceController@index")}}">Devices</a>
         <a class="item" href="{{action("SettingsController@index")}}">Settings</a>

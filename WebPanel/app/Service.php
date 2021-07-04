@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Service extends Model
 {
@@ -17,5 +18,12 @@ class Service extends Model
     }
     function properties(){
         return $this->hasMany(Property::class,'service_id');
+    }
+    function getGroupsAttribute() {
+        return DB::table('groups')
+            ->join('service_groups','groups.id','=','service_groups.group_id')
+            ->select('groups.*','service_groups.*')
+            ->where('service_groups.service_id', '=', $this->id)->get();
+
     }
 }

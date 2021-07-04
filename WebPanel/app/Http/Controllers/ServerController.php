@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\Property;
 use App\Server;
+use App\ServerGroup;
 use App\ServerTag;
 use App\Service;
 use App\Setting;
@@ -42,6 +44,7 @@ class ServerController extends Controller
     public function store(Request $request)
     {
         $tags = $request->get('tags');
+        $groups = $request->get('groups');
         $server = new Server();
         $server->service_id = $request->get('service_id');
         $server->index = $request->get('index');
@@ -69,7 +72,14 @@ class ServerController extends Controller
                 $st->save();
             }
         }
-
+        if($groups != null ) {
+            foreach ($groups as $group){
+                $sg = new ServerGroup();
+                $sg->server_id = $server->id;
+                $sg->group_id = $group;
+                $sg->save();
+            }
+        }
         return response()->redirectToAction('ServerController@ServiceServers',$request->get('service_id'));
     }
 
@@ -136,6 +146,19 @@ class ServerController extends Controller
                 $st->save();
             }
         }
+
+
+        ServerGroup::where('server_id',$id)->delete();
+        $groups = $request->get('groups');
+        if($groups != null ){
+            foreach ($groups as $group){
+                $sg = new ServerGroup();
+                $sg->server_id = $server->id ;
+                $sg->group_id = $group;
+                $sg->save();
+            }
+        }
+
         $server->save();
         return response()->redirectToAction('ServerController@ServiceServers',$server->service->id);
 

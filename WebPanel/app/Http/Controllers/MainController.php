@@ -101,4 +101,29 @@ class MainController extends Controller
             return base64_encode($data);
 
     }
+    function logout( Request $request){
+        $client = new \GuzzleHttp\Client();
+        $username = $request->get('username',null);
+        $password = $request->get('password',null);
+        $device_id = $request->get('device_id',null);
+        $AUTH = env('AUTH_SERVER');
+        if($username != null && $password != null){
+            $AUTH  = sprintf ($AUTH,$username,$password);
+            $response = $client->request('GET', $AUTH);
+
+            $user = $response->getBody();
+            $output['User'] =json_decode($user,true );
+            if($device_id == null || $device_id == ""){
+                return response('',403);
+            }else{
+                if($output['User']['Status'] == "OK" || $output['User']['Status'] == "FirstUse"){
+                    Device::where([
+                        ['username',$username],
+                        ['device_id',$device_id]
+                    ])->delete();
+                    return response('',200);
+                }
+            }
+        }
+    }
 }

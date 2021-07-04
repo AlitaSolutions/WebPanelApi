@@ -12,6 +12,7 @@
                     <tr>
                         <th>Server ID</th>
                         <th>Tags</th>
+                        <th>Groups</th>
                         @foreach($service->properties()->get() as $property)
                         <th>{{$property->name}}</th>
                         @endforeach
@@ -25,6 +26,11 @@
                             <td>
                                 @foreach($s->tags as $t)
                                     {{$t->tag->name}} |
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($s->groups as $group)
+                                    {{$group->name}} |
                                 @endforeach
                             </td>
                             @foreach($s->properties as $property)

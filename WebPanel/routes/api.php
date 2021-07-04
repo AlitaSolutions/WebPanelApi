@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/android','MainController@android');
+Route::get('/logout','MainController@logout');

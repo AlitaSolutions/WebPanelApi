@@ -25,12 +25,13 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/devices' , 'DeviceController@index');
     Route::post('/devices' , 'DeviceController@search');
     Route::delete('/devices/{id}' , 'DeviceController@delete');
+
+    Route::patch('/groups/{id}','GroupController@update');
+    Route::post('/groups','GroupController@create');
+    Route::get('/groups','GroupController@index');
+    Route::delete('/groups/{id}','GroupController@destroy');
 });
 
 
 Auth::routes(['register' => true]);
-
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

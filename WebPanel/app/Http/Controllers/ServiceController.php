@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Service;
+use App\ServiceGroup;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -36,7 +37,17 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        Service::create($request->all());
+        $request->validate(['name'=>'required|unique:services']);
+        $service = Service::create($request->all());
+        $groups = $request->groups;
+        if($groups != null ) {
+            foreach ($groups as $group){
+                $sg = new ServiceGroup();
+                $sg->service_id = $service->id;
+                $sg->group_id = $group;
+                $sg->save();
+            }
+        }
         return response()->redirectToAction("ServiceController@index");
     }
 
@@ -59,7 +70,8 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Service::findOrFail($id);
+        return view('services.edit')->with(['record' => $service]);
     }
 
     /**
@@ -75,13 +87,19 @@ class ServiceController extends Controller
         $service = Service::findOrFail($id);
         $service->name = $name;
         $service->index = $request->get('index');
-        $service->is_enabled = $request->get('is_enabled',true);
-        $service->recommended = $request->get('recommended',true);
+        $service->enabled = $request->get('enabled') == 'on';
+        $service->recommended = $request->get('recommended') == 'on';
         $r = $service->save();
-        if ($r)
-            return response(null,Response::HTTP_OK);
-        else
-            return response(null,Response::HTTP_NOT_ACCEPTABLE);
+        ServiceGroup::where('service_id',$service->id)->delete();
+        if($request->groups != null ){
+            foreach ($request->groups as $group){
+                $sg = new ServiceGroup();
+                $sg->service_id = $service->id ;
+                $sg->group_id = $group;
+                $sg->save();
+            }
+        }
+        return redirect()->action('ServiceController@index');
     }
 
     /**

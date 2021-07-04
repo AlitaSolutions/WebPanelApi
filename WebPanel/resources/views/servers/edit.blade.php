@@ -38,6 +38,22 @@
                                     </select>
                                 </div>
                                 <div class="field">
+                                    <label>Groups</label>
+
+                                    <select name="groups[]" multiple="" class="ui dropdown">
+                                        @foreach(\App\Group::all() as $group)
+                                            @php($found = false)
+                                            @foreach($record->groups as $g)
+                                                @if($g->group_id == $group->id)
+                                                    @php($found = true)
+                                                @endif
+                                            @endforeach
+
+                                            <option @if ($found) selected @endif value="{{$group->id}}">{{$group->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="field">
                                     <label>Order : </label>
                                     <input required type="number" placeholder="0" name="index" value="{{$record->index}}">
                                 </div>
