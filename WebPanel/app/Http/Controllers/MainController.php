@@ -49,41 +49,50 @@ class MainController extends Controller
                                 'device_id' => $device_id]
                         );
                     }
+                    if (Device::where('username',$username)->count() > $output['User']['MultiLogin'] ){
+                        $output['User']['Status'] = 'Locked';
+                    }
                 }
-                /*                if (Device::where('username',$username)->count() > 2){
-                                    $output['User']['Status'] = 'Locked';
-                                }*/
+                
             }
         }
         $platform = Platform::where('name','Android')->firstOrFail();
-        $services = $platform->services()->where('is_enabled',true)->orderBy('index')->get();
-        foreach ($services as $service){
-            $row = $service->toArray();
-            $row['servers'] = array();
-
-            foreach ($service->servers()->orderBy('index')->get() as $server){
-                $output_server = [];
-                if($server->properties == null)
-                    continue;
-                foreach ($server->properties as $p){
-                    $output_server[$p->property->name] = $p->value;
-                }
-                if(isset($output_server['Enabled'])){
-                    if(!$output_server['Enabled']){
-                        continue;
+        $services = $platform->services()->where('enabled',true)->orderBy('index')->get();
+        if($output['User']['Status'] == "OK" || $output['User']['Status'] == "FirstUse" ){
+            foreach ($services as $service){
+                $output['Services'][$service->name] = []; 
+                $row = [];
+                foreach ($service->servers()->orderBy('index')->get() as $server){
+                    $output_server = [];
+                    $output_server['_id'] = $server->id;
+                    $output_server['groups'] = $server->groups->pluck('name')->toArray(); 
+                    if(count($output_server['groups']) > 0 ){
+                        if(!in_array($output['User']['GroupName'],$output_server['groups'])){
+                            continue;
+                        }
                     }
+                    if($server->properties == null)
+                        continue;
+                    foreach ($server->properties as $p){
+                        $output_server[$p->property->name] = $p->value;
+                    }
+                    if(isset($output_server['Enabled'])){
+                        if(!$output_server['Enabled']){
+                            continue;
+                        }
+                    }
+                    $server_tags = $server->tags()->first();
+                    $tag = "#";
+                    if($server_tags != null) {
+                        $t = $server_tags->tag()->first();
+                        if($t != null )
+                            $tag = $t->name;
+    
+                    }
+                    $row[$tag][] =$output_server;
                 }
-                $server_tags = $server->tags()->first();
-                $tag = "#";
-                if($server_tags != null) {
-                    $t = $server_tags->tag()->first();
-                    if($t != null )
-                        $tag = $t->name;
-
-                }
-                $row['servers']/*[$tag]*/[] =$output_server;
+                $output['Services'][$service->name] = $row;
             }
-            $output['Services'][] = $row;
         }
         foreach (Setting::all() as $setting){
             $output['Settings'][$setting->key] = $setting->value;
