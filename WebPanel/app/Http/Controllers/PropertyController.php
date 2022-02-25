@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Property;
-use App\Service;
-use App\Value;
+use App\Models\Property;
+use App\Models\Service;
+use App\Models\Value;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -47,7 +47,7 @@ class PropertyController extends Controller
             $v->value = $request->get('default') ;
             $v->save();
         }
-        return response()->redirectToAction('PropertyController@index');
+        return redirect()->action([PropertyController::class,'index']);
     }
 
     /**

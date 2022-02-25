@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Setting;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -37,7 +37,7 @@ class SettingsController extends Controller
     public function store(Request $request)
     {
         Setting::create($request->all());
-        return response()->redirectToAction('SettingsController@index');
+        return redirect()->action([SettingsController::class,'index']);
     }
 
     /**

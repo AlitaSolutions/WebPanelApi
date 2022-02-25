@@ -14,8 +14,9 @@ class Servers extends Migration
     public function up()
     {
         Schema::create('servers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('service_id');
+            $table->id('id');
+            $table->integer('index')->default(0);
+            $table->foreignId('service_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->timestamps();
         });

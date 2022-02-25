@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Add New Tag</h4>
-                    {!! Form::open(['action' => 'TagsController@store',
+                    {!! Form::open(['url' => action([\App\Http\Controllers\TagsController::class,'store']),
                     'autocomplete'=>'off']) !!}
                     <div class="form ui">
                         <div class="fields">
@@ -35,7 +35,7 @@
                         <th>Action</th>
                     </tr></thead>
                     <tbody>
-                    @foreach(\App\Tag::all() as $tag)
+                    @foreach(\App\Models\Tag::all() as $tag)
                         <tr>
                             <td data-label="id">{{$tag['id']}}</td>
                             <td>{{$tag['name']}}</td>
@@ -124,7 +124,7 @@
         });
         function deleteRecord(id){
             $.ajax({
-                url: "{{action("TagsController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\TagsController::class,"index"])}}/" + id,
                 type: "DELETE",
                 data: {
                     "id":id
@@ -139,7 +139,7 @@
         }
         function editRecord(id,name){
             $.ajax({
-                url: "{{action("TagsController@index")}}/" + id,
+                url:"{{action([\App\Http\Controllers\TagsController::class,"index"])}}/" + id,
                 type: "PUT",
                 data: {
                     "id":id,

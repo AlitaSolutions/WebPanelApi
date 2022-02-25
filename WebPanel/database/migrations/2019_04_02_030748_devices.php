@@ -14,9 +14,10 @@ class Devices extends Migration
     public function up()
     {
         Schema::create('devices', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id('id');
             $table->string('username');
             $table->string('device_id');
+            $table->string('device_name')->nullable()->default('null');
             $table->timestamps();
         });
     }

@@ -14,9 +14,9 @@ class ServerTags extends Migration
     public function up()
     {
         Schema::create('server_tags', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('server_id');
-            $table->unsignedInteger('tag_id');
+            $table->id('id');
+            $table->foreignId('server_id');
+            $table->foreignId('tag_id');
 
 
             $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');

@@ -14,12 +14,12 @@ class Properties extends Migration
     public function up()
     {
         Schema::create('properties', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
+            $table->id();
+            $table->string('name')->unique();
             $table->integer('type')->default(0);
-
-            $table->unsignedInteger('service_id');
+            $table->foreignId('service_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

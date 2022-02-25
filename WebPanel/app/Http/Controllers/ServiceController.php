@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Service;
-use App\ServiceGroup;
+use App\Models\Service;
+use App\Models\ServiceGroup;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -48,7 +48,7 @@ class ServiceController extends Controller
                 $sg->save();
             }
         }
-        return response()->redirectToAction("ServiceController@index");
+        return redirect()->action([ServiceController::class,"index"]);
     }
 
     /**
@@ -99,7 +99,7 @@ class ServiceController extends Controller
                 $sg->save();
             }
         }
-        return redirect()->action('ServiceController@index');
+        return redirect()->action([ServiceController::class,'index']);
     }
 
     /**

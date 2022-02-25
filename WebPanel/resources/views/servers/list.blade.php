@@ -45,7 +45,7 @@
                                 @endif
                             @endforeach
                             <td>{{$s->index}}</td>
-                            <td data-label="name"><a href="{{action('ServerController@edit',$s['id'])}}">Edit</a>&nbsp;|&nbsp;<a data-id="{{$s->id}}" class="del" href="#">Delete</a></td>
+                            <td data-label="name"><a href="{{action([\App\Http\Controllers\ServerController::class,'edit'],$s->id)}}">Edit</a>&nbsp;|&nbsp;<a data-id="{{$s->id}}" class="del" href="#">Delete</a></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -89,7 +89,7 @@
         });
         function deleteRecord(id){
             $.ajax({
-                url: "{{action("ServerController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\ServerController::class,"index"])}}/" + id,
                 type: "DELETE",
                 data: {
                     "id":id

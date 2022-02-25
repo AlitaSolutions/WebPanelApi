@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Add New Server</h4>
-                    {!! Form::open(['action' => 'ServerController@store']) !!}
+                    {!! Form::open(['url' => action([\App\Http\Controllers\ServerController::class,'store'])]) !!}
                     <div class="form ui">
                         <input type="hidden" name="service_id" value="{{$service->id}}" />
                         <div class="fields">
@@ -24,7 +24,7 @@
                                 <label>Tags</label>
 
                                 <select name="tags[]" multiple="" class="ui dropdown">
-                                    @foreach(\App\Tag::all() as $tag)
+                                    @foreach(\App\Models\Tag::all() as $tag)
                                         <option value="{{$tag->id}}">{{$tag->name}}</option>
                                     @endforeach
                                 </select>
@@ -33,7 +33,7 @@
                                 <label>Groups</label>
 
                                 <select name="groups[]" multiple="" class="ui dropdown">
-                                    @foreach(\App\Group::all() as $group)
+                                    @foreach(\App\Models\Group::all() as $group)
                                         <option value="{{$group->id}}">{{$group->name}}</option>
                                     @endforeach
                                 </select>

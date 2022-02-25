@@ -1,0 +1,11 @@
+
+g	php:S3776"TRefactor this function to reduce its Cognitive Complexity from 67 to the 15 allowed.(Ú„Î¸
+B	php:S1481"/Remove this unused "$expiresAt" local variable.(µˆä
+A	php:S1066"/Merge this if statement with the enclosing one.(«¬¨
+G	php:S1066"/Merge this if statement with the enclosing one.(„ìù¸ÿÿÿÿÿ
+1php:S125"Remove this commented out code.(î½…Ç
+6php:S125"Remove this commented out code.(¸ÿÎ‰şÿÿÿÿ
+Gphp:S121"0Add curly braces around the nested statement(s).(Ö­½Éşÿÿÿÿ
+Gphp:S121"0Add curly braces around the nested statement(s).(ˆ¢˜şøÿÿÿÿ
+Gphp:S121"0Add curly braces around the nested statement(s).(„¶áìøÿÿÿÿ
+Bphp:S121"0Add curly braces around the nested statement(s).(˜Ö¤ó

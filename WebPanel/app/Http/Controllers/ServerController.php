@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
-use App\Property;
-use App\Server;
-use App\ServerGroup;
-use App\ServerTag;
-use App\Service;
-use App\Setting;
-use App\Value;
+use App\Models\Server;
+use App\Models\ServerGroup;
+use App\Models\ServerTag;
+use App\Models\Service;
+use App\Models\Value;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -80,7 +77,7 @@ class ServerController extends Controller
                 $sg->save();
             }
         }
-        return response()->redirectToAction('ServerController@ServiceServers',$request->get('service_id'));
+        return redirect()->action([ServerController::class,'ServiceServers'],$request->get('service_id'));
     }
 
     /**

@@ -14,9 +14,12 @@ class Services extends Migration
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
-            $table->unsignedInteger('platform_id');
+            $table->foreignId('platform_id')->unsigned();
+            $table->integer('index')->default(0);
+            $table->boolean('enabled')->default(true);
+            $table->boolean('recommended')->default(false)->nullable(false);
 
             $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
             $table->timestamps();

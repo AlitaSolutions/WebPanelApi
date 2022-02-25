@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="eight wide column">
                     <h4 class="ui dividing header">Add New Platform</h4>
-                    {!! Form::open(['action' => 'PlatformController@store']) !!}
+                    {!! Form::open(['url' => action([\App\Http\Controllers\PlatformController::class,'store'])]) !!}
                     <div class="form ui">
                         <div class="inline field">
                             <label>Platform Name : </label>
@@ -27,11 +27,11 @@
                         <th>Action</th>
                     </tr></thead>
                     <tbody>
-                    @foreach(\App\Platform::all() as $platform)
+                    @foreach(\App\Models\Platform::all() as $platform)
                     <tr>
-                        <td data-label="id">{{$platform['id']}}</td>
-                        <td data-label="name">{{$platform['name']}}</td>
-                        <td data-label="name"><a data-id="{{$platform['id']}}" data-name="{{$platform['name']}}" class="edit" href="#">Edit</a>&nbsp;|&nbsp;<a data-id="{{$platform['id']}}" class="del" href="#">Delete</a></td>
+                        <td data-label="id">{{$platform->id}}</td>
+                        <td data-label="name">{{$platform->name}}</td>
+                        <td data-label="name"><a data-id="{{$platform->id}}" data-name="{{$platform->name}}" class="edit" href="#">Edit</a>&nbsp;|&nbsp;<a data-id="{{$platform->id}}" class="del" href="#">Delete</a></td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -113,7 +113,7 @@
         });
         function deleteRecord(id){
             $.ajax({
-                url: "{{action("PlatformController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\PlatformController::class,"index"])}}/" + id,
                 type: "DELETE",
                 data: {
                     "id":id
@@ -128,7 +128,7 @@
         }
         function editRecord(id,name){
             $.ajax({
-                url: "{{action("PlatformController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\PlatformController::class,"index"])}}/" + id,
                 type: "PUT",
                 data: {
                     "id":id,

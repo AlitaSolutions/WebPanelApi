@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Username</h4>
-                    {!! Form::open(['action' => 'DeviceController@search']) !!}
+                    {!! Form::open(['url' => action([\App\Http\Controllers\DeviceController::class,'search'])]) !!}
                     <div class="form ui">
                         <div class="inline fields">
                             <div class="field">
@@ -29,13 +29,15 @@
                     <table class="ui celled table">
                         <thead>
                         <tr>
-                            <th>Device_ID</th>
+                            <th>Device ID</th>
+                            <th>Device Name</th>
                             <th>Action</th>
                         </tr></thead>
                         <tbody>
                         @foreach($result as $device)
                             <tr>
                                 <td data-label="id">{{$device->device_id}}</td>
+                                <td data-label="caption">{{$device->device_name}}</td>
                                 <td data-label="name"><a data-id="{{$device->id}}" class="del" href="#">Delete</a></td>
                             </tr>
                         @endforeach
@@ -94,7 +96,7 @@
         });
         function deleteRecord(id){
             $.ajax({
-                url: "{{action("DeviceController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\DeviceController::class,"index"])}}/" + id,
                 type: "DELETE",
                 data: {
                     "id":id

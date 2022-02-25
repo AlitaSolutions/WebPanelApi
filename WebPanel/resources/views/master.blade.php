@@ -122,15 +122,15 @@
 <!-- Following Menu -->
 <div class="ui large top fixed menu">
     <div class="ui container">
-        <a class="item" href="{{action("MainController@index")}}">Main</a>
-        <a class="item" href="{{action("PlatformController@index")}}">Platforms</a>
-        <a class="item" href="{{action("ServiceController@index")}}">Services</a>
-        <a class="item" href="{{action("PropertyController@index")}}">Properties</a>
-        <a class="item" href="{{action("ServerController@index")}}">Servers</a>
-        <a class="item" href="{{action("GroupController@index")}}">Groups</a>
-        <a class="item" href="{{action("TagsController@index")}}">Tags</a>
-        <a class="item" href="{{action("DeviceController@index")}}">Devices</a>
-        <a class="item" href="{{action("SettingsController@index")}}">Settings</a>
+        <a class="item" href="{{action([\App\Http\Controllers\MainController::class,"index"])}}">Main</a>
+        <a class="item" href="{{action([\App\Http\Controllers\PlatformController::class,"index"])}}">Platforms</a>
+        <a class="item" href="{{action([\App\Http\Controllers\ServiceController::class,"index"])}}">Services</a>
+        <a class="item" href="{{action([\App\Http\Controllers\PropertyController::class,"index"])}}">Properties</a>
+        <a class="item" href="{{action([\App\Http\Controllers\ServerController::class,"index"])}}">Servers</a>
+        <a class="item" href="{{action([\App\Http\Controllers\GroupController::class,"index"])}}">Groups</a>
+        <a class="item" href="{{action([\App\Http\Controllers\TagsController::class,"index"])}}">Tags</a>
+        <a class="item" href="{{action([\App\Http\Controllers\DeviceController::class,"index"])}}">Devices</a>
+        <a class="item" href="{{action([\App\Http\Controllers\SettingsController::class,"index"])}}">Settings</a>
         <div class="right menu">
             <div class="item">
                 <a class="ui primary button" href="{{ route('logout') }}"  onclick="event.preventDefault();

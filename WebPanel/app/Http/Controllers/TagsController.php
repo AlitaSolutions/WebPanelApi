@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -37,7 +37,7 @@ class TagsController extends Controller
     public function store(Request $request)
     {
         $tag = Tag::create($request->all());
-        return response()->redirectToAction('TagsController@index');
+        return redirect()->action([TagsController::class,'index']);
     }
 
     /**

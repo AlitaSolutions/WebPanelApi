@@ -7,24 +7,24 @@
                 <div class="ui statistics">
                     <div class="statistic">
                         <div class="label">
-                            <a href="{{action('PlatformController@index')}}">Platforms</a>
+                            <a href="{{action([\App\Http\Controllers\PlatformController::class, 'index'])}}">Platforms</a>
                         </div>
                         <div class="value">
-                            {{\App\Platform::all()->count()}}
+                            {{\App\Models\Platform::all()->count()}}
                         </div>
                     </div>
                     <div class="statistic">
                         <div class="label">
-                            <a href="{{action('ServiceController@index')}}"> Services</a>
+                            <a href="{{action([\App\Http\Controllers\ServiceController::class,'index'])}}"> Services</a>
                         </div>
                         <div class="value">
-                            {{\App\Service::all()->count()}}
+                            {{\App\Models\Service::all()->count()}}
                         </div>
                     </div>
-                    @foreach(\App\Service::all() as $service)
+                    @foreach(\App\Models\Service::all() as $service)
                     <div class="statistic">
                         <div class="label">
-                            <a href="{{action('ServerController@ServiceServers',$service->id)}}">{{$service->name}}</a>
+                            <a href="{{action([\App\Http\Controllers\ServerController::class,'ServiceServers'],$service->id)}}">{{$service->name}}</a>
                         </div>
                         <div class="value">
                             {{$service->servers()->get()->count()}}
@@ -33,10 +33,10 @@
                     @endforeach
                     <div class="statistic">
                         <div class="label">
-                            <a href="{{action('SettingsController@index')}}">Settings</a>
+                            <a href="{{action([\App\Http\Controllers\SettingsController::class,'index'])}}">Settings</a>
                         </div>
                         <div class="value">
-                            {{\App\Setting::all()->count()}}
+                            {{\App\Models\Setting::all()->count()}}
                         </div>
                     </div>
                     <div class="statistic">
@@ -44,7 +44,7 @@
                             Total Servers
                         </div>
                         <div class="value">
-                            {{\App\Server::all()->count()}}
+                            {{\App\Models\Server::all()->count()}}
                         </div>
                     </div>
                     <div class="statistic">
@@ -52,7 +52,7 @@
                             Total Properties
                         </div>
                         <div class="value">
-                            {{\App\Property::all()->count()}}
+                            {{\App\Models\Property::all()->count()}}
                         </div>
                     </div>
                 </div>

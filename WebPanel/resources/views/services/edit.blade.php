@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Edit Service</h4>
-                    {!! Form::open(['action' => ['ServiceController@update',$record->id] , 'method' => 'PUT']) !!}
+                    {!! Form::open(['url' => action([\App\Http\Controllers\ServiceController::class,'update'],$record->id) , 'method' => 'PUT']) !!}
                     <div class="form ui">
                         <input type="hidden" name="server_id" value="{{$record->id}}" />
                         <div class="fields">
@@ -29,7 +29,7 @@
                                 <label>Groups</label>
 
                                 <select name="groups[]" multiple="" class="ui dropdown">
-                                    @foreach(\App\Group::all() as $group)
+                                    @foreach(\App\Models\Group::all() as $group)
                                         @php($found = false)
                                         @foreach($record->groups as $g)
                                             @if($g->group_id == $group->id)

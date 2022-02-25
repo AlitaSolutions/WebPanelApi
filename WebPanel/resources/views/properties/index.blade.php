@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Add New Property</h4>
-                    {!! Form::open(['action' => 'PropertyController@store',
+                    {!! Form::open(['url' => action([\App\Http\Controllers\PropertyController::class,'store']),
                     'autocomplete'=>'off']) !!}
                     <div class="form ui">
                         <div class="fields">
@@ -26,8 +26,8 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Service Name</div>
                                     <div class="menu">
-                                        @foreach(\App\Service::all() as $service)
-                                            <div class="item" data-value="{{$service['id']}}">{{$service['name']}} - {{$service->platform->name}}</div>
+                                        @foreach(\App\Models\Service::all() as $service)
+                                            <div class="item" data-value="{{$service->id}}">{{$service->name}} - {{$service->platform->name}}</div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -37,18 +37,18 @@
                                 <div class="ui selection dropdown">
                                     <input type="hidden" name="type" value="0">
                                     <i class="dropdown icon"></i>
-                                    <div  data-value="0" class="default text">Text</div>
+                                    <div data-value="0" class="default text">Text</div>
                                     <div class="menu">
-                                            <div class="item" data-value="0">Text</div>
-                                            <div class="item" data-value="1">Number</div>
-                                            <div class="item" data-value="2">Boolean</div>
+                                        <div class="item" data-value="0">Text</div>
+                                        <div class="item" data-value="1">Number</div>
+                                        <div class="item" data-value="2">Boolean</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Action : </label>
 
-                                <input type="submit" value="Save" class="ui primary button" />
+                                <input type="submit" value="Save" class="ui primary button"/>
 
 
                             </div>
@@ -60,15 +60,17 @@
             <div class="row">
                 <table class="ui celled table">
                     <thead>
-                    <tr><th>ID</th>
+                    <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Service</th>
                         <th>Platform</th>
                         <th>Data Type</th>
                         <th>Action</th>
-                    </tr></thead>
+                    </tr>
+                    </thead>
                     <tbody>
-                    @foreach(\App\Property::all() as $property)
+                    @foreach(\App\Models\Property::all() as $property)
                         <tr>
                             <td data-label="id">{{$property['id']}}</td>
                             <td>{{$property['name']}}</td>
@@ -81,7 +83,9 @@
                             @elseif($property->type == 2)
                                 <td>Boolean</td>
                             @endif
-                            <td><a data-id="{{$property['id']}}" data-name="{{$property['name']}}" class="edit" href="#">Edit</a>&nbsp;|&nbsp;<a data-id="{{$property['id']}}" class="del" href="#">Delete</a></td>
+                            <td><a data-id="{{$property['id']}}" data-name="{{$property['name']}}" class="edit"
+                                   href="#">Edit</a>&nbsp;|&nbsp;<a data-id="{{$property['id']}}" class="del" href="#">Delete</a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -131,65 +135,67 @@
 @stop
 @section('scripts')
     <script>
-        $(document).ready(()=>{
+        $(document).ready(() => {
             $('.ui.dropdown')
                 .dropdown();
-            $(".del").click((e)=>{
+            $(".del").click((e) => {
                 $('#DeleteModal').modal({
-                    closable  : false,
-                    onDeny    : function(){
+                    closable: false,
+                    onDeny: function () {
 
                     },
-                    onApprove : function() {
+                    onApprove: function () {
                         let id = $(e.target).data('id');
                         deleteRecord(id);
                     }
                 }).modal('show');
                 e.preventDefault();
             });
-            $(".edit").click((e)=>{
+            $(".edit").click((e) => {
                 let name = $(e.target).data('name');
                 $("#edit").val(name);
                 $('#EditModal').modal({
-                    closable  : false,
-                    onDeny    : function(){
+                    closable: false,
+                    onDeny: function () {
 
                     },
-                    onApprove : function() {
+                    onApprove: function () {
                         let id = $(e.target).data('id');
-                        editRecord(id,$("#edit").val());
+                        editRecord(id, $("#edit").val());
                     }
                 }).modal('show');
                 e.preventDefault();
             });
         });
-        function deleteRecord(id){
+
+        function deleteRecord(id) {
             $.ajax({
-                url: "{{action("PropertyController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\PropertyController::class,"index"])}}/" + id,
                 type: "DELETE",
                 data: {
-                    "id":id
+                    "id": id
                 },
-                success : function(){
+                success: function () {
                     location.reload();
                 },
-                error : function () {
+                error: function () {
                     alert('Unable to delete record');
                 }
             });
         }
-        function editRecord(id,name){
+
+        function editRecord(id, name) {
             $.ajax({
-                url: "{{action("PropertyController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\PropertyController::class,"index"])}}/" + id,
                 type: "PUT",
                 data: {
-                    "id":id,
-                    "name":name
+                    "id": id,
+                    "name": name
                 },
-                success : function(){
+                success: function () {
                     location.reload();
                 },
-                error : function () {
+                error: function () {
                     alert('Unable to edit record');
                 }
             });

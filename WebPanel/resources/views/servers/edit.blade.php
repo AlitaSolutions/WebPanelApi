@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Edit Server</h4>
-                    {!! Form::open(['action' => ['ServerController@update',$record->id] , 'method' => 'PUT']) !!}
+                    {!! Form::open(['action' => [[\App\Http\Controllers\ServerController::class,'update'],$record->id] , 'method' => 'PUT']) !!}
                     <div class="form ui">
                         <input type="hidden" name="server_id" value="{{$record->id}}" />
                         <div class="fields">
@@ -25,7 +25,7 @@
                                     <label>Tags</label>
 
                                     <select name="tags[]" multiple="" class="ui dropdown">
-                                        @foreach(\App\Tag::all() as $tag)
+                                        @foreach(\App\Models\Tag::all() as $tag)
                                             @php($found = false)
                                             @foreach($record->tags as $t)
                                                 @if($t->tag_id == $tag->id)
@@ -41,7 +41,7 @@
                                     <label>Groups</label>
 
                                     <select name="groups[]" multiple="" class="ui dropdown">
-                                        @foreach(\App\Group::all() as $group)
+                                        @foreach(\App\Models\Group::all() as $group)
                                             @php($found = false)
                                             @foreach($record->groups as $g)
                                                 @if($g->group_id == $group->id)

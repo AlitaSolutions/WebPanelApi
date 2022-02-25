@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Platform;
+use App\Models\Platform;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -37,7 +37,7 @@ class PlatformController extends Controller
     public function store(Request $request)
     {
         Platform::create($request->all());
-        return response()->redirectToAction("PlatformController@index");
+        return response()->redirectToAction([PlatformController::class,"index"]);
     }
 
     /**

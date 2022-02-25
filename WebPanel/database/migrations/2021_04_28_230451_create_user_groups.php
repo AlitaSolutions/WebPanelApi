@@ -14,7 +14,7 @@ class CreateUserGroups extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id('id');
             $table->string('name');
             $table->timestamps();
         });

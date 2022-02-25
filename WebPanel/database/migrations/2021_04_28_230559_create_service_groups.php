@@ -14,9 +14,9 @@ class CreateServiceGroups extends Migration
     public function up()
     {
         Schema::create('service_groups', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('group_id');
-            $table->unsignedInteger('service_id');
+            $table->id('id');
+            $table->foreignId('group_id');
+            $table->foreignId('service_id');
 
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
+use App\Models\Group;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -30,7 +30,7 @@ class GroupController extends Controller
         $group = new Group();
         $group->name = $request->name;
         $group->save();
-        return redirect()->action('GroupController@index');
+        return redirect()->action([GroupController::class,'index']);
     }
 
     /**

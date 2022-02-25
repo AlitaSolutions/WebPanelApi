@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Add New Group</h4>
-                    {!! Form::open(['action' => 'GroupController@create','method'=>'post']) !!}
+                    {!! Form::open(['url' => action([\App\Http\Controllers\GroupController::class,'create']),'method'=>'post']) !!}
                     <div class="form ui">
                         <div class="inline fields">
                             <div class="field">
@@ -32,7 +32,7 @@
                         <th>Action</th>
                     </tr></thead>
                     <tbody>
-                    @foreach(\App\Group::all() as $group)
+                    @foreach(\App\Models\Group::all() as $group)
                         <tr>
                             <td data-label="id">{{$group['id']}}</td>
                             <td>{{$group['name']}}</td>
@@ -127,7 +127,7 @@
         });
         function deleteRecord(id){
             $.ajax({
-                url: "{{action("GroupController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\GroupController::class,"index"])}}/" + id,
                 type: "DELETE",
                 data: {
                     "id":id
@@ -142,7 +142,7 @@
         }
         function editRecord(id,name){
             $.ajax({
-                url: "{{action("GroupController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\GroupController::class,"index"])}}/" + id,
                 type: "PATCH",
                 data: {
                     "id":id,

@@ -14,9 +14,9 @@ class Values extends Migration
     public function up()
     {
         Schema::create('values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('server_id');
-            $table->unsignedInteger('property_id');
+            $table->id('id');
+            $table->foreignId('server_id');
+            $table->foreignId('property_id');
             $table->string('value')->nullable(true)->default(null);
 
             $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');

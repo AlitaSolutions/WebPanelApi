@@ -14,11 +14,9 @@ class Settings extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('key')->unique();
             $table->string('value');
-            $table->unsignedInteger('platform_id');
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
             $table->timestamps();
         });
     }

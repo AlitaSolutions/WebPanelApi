@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Device;
-use App\Platform;
-use App\Setting;
+use App\Models\Device;
+use App\Models\Platform;
+use App\Models\Setting;
+use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use stdClass;
 
 class MainController extends Controller
 {
@@ -16,15 +17,15 @@ class MainController extends Controller
         return view('main');
     }
     function android( Request $request){
-        $client = new \GuzzleHttp\Client();
-        $expiresAt = \Carbon\Carbon::now()->addSecond(env("CACHE_DURATION",0));
+        $client = new Client();
+        $expiresAt = Carbon::now()->addSecond(env("CACHE_DURATION",0));
 
 
         $username = $request->get('username',null);
         $password = $request->get('password',null);
 
         $device_id = $request->get('device_id',null);
-        $output = array('Services' => [],'Settings' => null,'User' => ["Status" => "Wrong"]) ;
+        $output = array('Services' => [],'Settings' => ["Dummy" => true],'User' => ["Status" => "Wrong"]) ;
         $AUTH = env('AUTH_SERVER');
         if($username != null && $password != null){
             if(Cache::get("$username:$password",null) != null ){
@@ -46,6 +47,7 @@ class MainController extends Controller
                     if($device_exists == 0 ){
                         Device::create([
                                 'username' => $username,
+                                'device_name' => $request->get('device_name',null),
                                 'device_id' => $device_id]
                         );
                     }
@@ -53,19 +55,19 @@ class MainController extends Controller
                         $output['User']['Status'] = 'Locked';
                     }
                 }
-                
+
             }
         }
         $platform = Platform::where('name','Android')->firstOrFail();
         $services = $platform->services()->where('enabled',true)->orderBy('index')->get();
         if($output['User']['Status'] == "OK" || $output['User']['Status'] == "FirstUse" ){
             foreach ($services as $service){
-                $output['Services'][$service->name] = []; 
+                $output['Services'][$service->name] = [];
                 $row = [];
                 foreach ($service->servers()->orderBy('index')->get() as $server){
                     $output_server = [];
                     $output_server['_id'] = $server->id;
-                    $output_server['groups'] = $server->groups->pluck('name')->toArray(); 
+                    $output_server['groups'] = $server->groups->pluck('name')->toArray();
                     if(count($output_server['groups']) > 0 ){
                         if(!in_array($output['User']['GroupName'],$output_server['groups'])){
                             continue;
@@ -87,7 +89,7 @@ class MainController extends Controller
                         $t = $server_tags->tag()->first();
                         if($t != null )
                             $tag = $t->name;
-    
+
                     }
                     $row[$tag][] =$output_server;
                 }
@@ -111,7 +113,7 @@ class MainController extends Controller
 
     }
     function logout( Request $request){
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
         $username = $request->get('username',null);
         $password = $request->get('password',null);
         $device_id = $request->get('device_id',null);

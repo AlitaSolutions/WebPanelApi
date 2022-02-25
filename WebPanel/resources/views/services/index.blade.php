@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Add New Service</h4>
-                    {!! Form::open(['action' => 'ServiceController@store']) !!}
+                    {!! Form::open(['url' => action([\App\Http\Controllers\ServiceController::class,'store'])]) !!}
                     <div class="form ui">
                         <div class="inline fields">
                             <div class="field">
@@ -20,7 +20,7 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Platform Name : </div>
                                     <div class="menu">
-                                        @foreach(\App\Platform::all() as $platform)
+                                        @foreach(\App\Models\Platform::all() as $platform)
                                             <div class="item" data-value="{{$platform['id']}}">{{$platform['name']}}</div>
                                         @endforeach
                                     </div>
@@ -30,7 +30,7 @@
                                 <label>Groups</label>
 
                                 <select name="groups[]" multiple="" class="ui dropdown">
-                                    @foreach(\App\Group::all() as $group)
+                                    @foreach(\App\Models\Group::all() as $group)
                                         <option value="{{$group->id}}">{{$group->name}}</option>
                                     @endforeach
                                 </select>
@@ -63,12 +63,12 @@
                         <th>Action</th>
                     </tr></thead>
                     <tbody>
-                    @foreach(\App\Service::all() as $service)
+                    @foreach(\App\Models\Service::all() as $service)
                         <tr>
                             <td data-label="id">{{$service['id']}}</td>
                             <td>{{$service['name']}}</td>
                             <td>{{$service->platform->name}}</td>
-                            <td><a href="{{action('ServerController@ServiceServers',$service['id'])}}">{{$service->servers()->get()->count()}}</a></td>
+                            <td><a href="{{action([\App\Http\Controllers\ServerController::class,'ServiceServers'],$service['id'])}}">{{$service->servers()->get()->count()}}</a></td>
                             <td>
                                 @foreach($service->groups as $group)
                                     {{$group->name}} |
@@ -77,7 +77,7 @@
                             <td>{{$service->index}}</td>
                             <td>{{$service->enabled ? "true":"false"}}</td>
                             <td>{{$service->recommended ? "true":"false"}}</td>
-                            <td><a data-id="{{$service['id']}}" data-name="{{$service['name']}}"  data-index="{{$service->index}}" data-enabled="{{$service->is_enabled}}"  data-recommended="{{$service->recommended}}" class="edit" href="{{action('ServiceController@edit' , $service->id)}}">Edit</a>&nbsp;|&nbsp;<a data-id="{{$service['id']}}" class="del" href="#">Delete</a></td>
+                            <td><a data-id="{{$service['id']}}" data-name="{{$service['name']}}"  data-index="{{$service->index}}" data-enabled="{{$service->is_enabled}}"  data-recommended="{{$service->recommended}}" class="edit" href="{{action([\App\Http\Controllers\ServiceController::class,'edit'] , $service->id)}}">Edit</a>&nbsp;|&nbsp;<a data-id="{{$service['id']}}" class="del" href="#">Delete</a></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -159,7 +159,7 @@
         });
         function deleteRecord(id){
             $.ajax({
-                url: "{{action("ServiceController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\ServiceController::class,"index"])}}/" + id,
                 type: "DELETE",
                 data: {
                     "id":id
@@ -174,7 +174,7 @@
         }
         function editRecord(id,name,index , enabled,recommended){
             $.ajax({
-                url: "{{action("ServiceController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\ServiceController::class,"index"])}}/" + id,
                 type: "PUT",
                 data: {
                     "id":id,

@@ -6,23 +6,13 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <h4 class="ui dividing header">Add New Platform</h4>
-                    {!! Form::open(['action' => 'SettingsController@store']) !!}
+                    {!! Form::open(['url' => action([\App\Http\Controllers\SettingsController::class,'store'])]) !!}
                     <div class="form ui">
                         <div class="inline field">
                             <label>Key : </label>
                             <input required type="text" placeholder="Key" name="key">
                             <label>Value : </label>
                             <input required type="text" placeholder="Value" name="value">
-                            <div class="ui selection dropdown">
-                                <input type="hidden" name="platform_id">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Platform Name : </div>
-                                <div class="menu">
-                                    @foreach(\App\Platform::all() as $platform)
-                                        <div class="item" data-value="{{$platform['id']}}">{{$platform['name']}}</div>
-                                    @endforeach
-                                </div>
-                            </div>
                             <button class="ui primary button">
                                 Save
                             </button>
@@ -37,16 +27,14 @@
                     <tr><th>ID</th>
                         <th>Key</th>
                         <th>Value</th>
-                        <th>Platform</th>
                         <th>Action</th>
                     </tr></thead>
                     <tbody>
-                    @foreach(\App\Setting::all() as $setting)
+                    @foreach(\App\Models\Setting::all() as $setting)
                         <tr>
                             <td data-label="id">{{$setting['id']}}</td>
                             <td>{{$setting['key']}}</td>
                             <td>{{$setting['value']}}</td>
-                            <td>{{$setting->platform->name}}</td>
                             <td><a data-id="{{$setting['id']}}" data-name="{{$setting['value']}}" class="edit" href="#">Edit</a>&nbsp;|&nbsp;<a data-id="{{$setting['id']}}" class="del" href="#">Delete</a></td>
                         </tr>
                     @endforeach
@@ -131,7 +119,7 @@
         });
         function deleteRecord(id){
             $.ajax({
-                url: "{{action("SettingsController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\SettingsController::class,"index"])}}/" + id,
                 type: "DELETE",
                 data: {
                     "id":id
@@ -146,7 +134,7 @@
         }
         function editRecord(id,name){
             $.ajax({
-                url: "{{action("SettingsController@index")}}/" + id,
+                url: "{{action([\App\Http\Controllers\SettingsController::class,"index"])}}/" + id,
                 type: "PUT",
                 data: {
                     "id":id,
