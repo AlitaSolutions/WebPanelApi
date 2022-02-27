@@ -105,9 +105,44 @@
       <path value="$PROJECT_DIR$/WebPanel/vendor/sebastian/object-enumerator" />
       <path value="$PROJECT_DIR$/WebPanel/vendor/sebastian/global-state" />
       <path value="$PROJECT_DIR$/WebPanel/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/laravel/sail" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/laravel/breeze" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/symfony/mailer" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/facade/ignition-contracts" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/fruitcake/php-cors" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/spatie/backtrace" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/spatie/ignition" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/spatie/laravel-ignition" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/spatie/flare-client-php" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/league/config" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/dflydev/dot-access-data" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/WebPanel/vendor/graham-campbell/result-type" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/WebPanel/vendor/autoload.php" />
