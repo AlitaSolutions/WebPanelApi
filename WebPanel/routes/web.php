@@ -4,6 +4,7 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\PasswordGroupController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ServerController;
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('/settings', SettingsController::class);
     Route::resource('/properties',PropertyController::class);
     Route::resource('/tags',TagsController::class);
+    Route::resource('/password-groups', PasswordGroupController::class);
     Route::get('/',[MainController::class,'index']);
     Route::get('/home', [HomeController::class,'index'])->name('home');
     Route::get('/devices' , [DeviceController::class,'index']);

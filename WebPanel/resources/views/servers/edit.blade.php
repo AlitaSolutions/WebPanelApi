@@ -9,7 +9,7 @@
                     {!! Form::open(['action' => [[\App\Http\Controllers\ServerController::class,'update'],$record->id] , 'method' => 'PUT']) !!}
                     <div class="form ui">
                         <input type="hidden" name="server_id" value="{{$record->id}}" />
-                        <div class="fields">
+                        <div class="">
                             @foreach($record->properties as $value)
                                 <div class="field">
                                     <label>{{$value->property->name}}</label>
@@ -50,6 +50,21 @@
                                             @endforeach
 
                                             <option @if ($found) selected @endif value="{{$group->id}}">{{$group->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>Password Group</label>
+
+                                    <select name="pg" class="ui dropdown">
+                                        <option value="-1">Null</option>
+                                        @foreach(\App\Models\PasswordGroup::all() as $pgroup)
+                                            @php($found = false)
+                                            @if($pgroup->id == $record->pg_id)
+                                                @php($found = true)
+                                            @endif
+
+                                            <option @if ($found) selected @endif value="{{$pgroup->id}}">{{$pgroup->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

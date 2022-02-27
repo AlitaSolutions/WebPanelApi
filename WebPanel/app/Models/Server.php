@@ -25,4 +25,7 @@ class Server extends Model
             ->select('groups.*', 'server_groups.*')
             ->where('server_groups.server_id', '=', $this->id)->get();
     }
+    function password() {
+        return $this->belongsTo(PasswordGroup::class,"pg_id");
+    }
 }

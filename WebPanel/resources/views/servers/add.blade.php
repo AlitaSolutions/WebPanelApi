@@ -9,7 +9,7 @@
                     {!! Form::open(['url' => action([\App\Http\Controllers\ServerController::class,'store'])]) !!}
                     <div class="form ui">
                         <input type="hidden" name="service_id" value="{{$service->id}}" />
-                        <div class="fields">
+                        <div class="">
                             @foreach($service->properties()->get() as $property)
                             <div class="field">
                                 <label>{{$property->name}}</label>
@@ -34,6 +34,16 @@
 
                                 <select name="groups[]" multiple="" class="ui dropdown">
                                     @foreach(\App\Models\Group::all() as $group)
+                                        <option value="{{$group->id}}">{{$group->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Password Group</label>
+
+                                <select name="pg" class="ui dropdown">
+                                    @foreach(\App\Models\PasswordGroup::all() as $group)
+                                        <option value="-1">Null</option>
                                         <option value="{{$group->id}}">{{$group->name}}</option>
                                     @endforeach
                                 </select>

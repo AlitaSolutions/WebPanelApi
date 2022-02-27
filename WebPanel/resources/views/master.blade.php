@@ -131,6 +131,7 @@
         <a class="item" href="{{action([\App\Http\Controllers\TagsController::class,"index"])}}">Tags</a>
         <a class="item" href="{{action([\App\Http\Controllers\DeviceController::class,"index"])}}">Devices</a>
         <a class="item" href="{{action([\App\Http\Controllers\SettingsController::class,"index"])}}">Settings</a>
+        <a class="item" href="{{action([\App\Http\Controllers\PasswordGroupController::class,"index"])}}">Passwords</a>
         <div class="right menu">
             <div class="item">
                 <a class="ui primary button" href="{{ route('logout') }}"  onclick="event.preventDefault();

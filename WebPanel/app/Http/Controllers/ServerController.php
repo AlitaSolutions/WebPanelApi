@@ -6,6 +6,7 @@ use App\Models\Server;
 use App\Models\ServerGroup;
 use App\Models\ServerTag;
 use App\Models\Service;
+use App\Models\Tag;
 use App\Models\Value;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -42,9 +43,15 @@ class ServerController extends Controller
     {
         $tags = $request->get('tags');
         $groups = $request->get('groups');
+        $pg = $request->get('pg');
         $server = new Server();
         $server->service_id = $request->get('service_id');
         $server->index = $request->get('index');
+        if ($pg != null && $pg >= 0 ) {
+            $server->pg_id = $pg;
+        }else{
+            $server->pg_id = null ;
+        }
         $server->save();
         $property_values = $request->get('property_value');
         foreach ($property_values as $k => $v){
@@ -77,6 +84,7 @@ class ServerController extends Controller
                 $sg->save();
             }
         }
+
         return redirect()->action([ServerController::class,'ServiceServers'],$request->get('service_id'));
     }
 
@@ -100,7 +108,7 @@ class ServerController extends Controller
     public function edit($id)
     {
         $record = Server::findOrFail($id);
-        $allTags = \App\Tag::all();
+        $allTags = Tag::all();
         $tags = [];
         foreach ($allTags as $tag){
             $tags[] = $tag->id;
@@ -123,6 +131,11 @@ class ServerController extends Controller
         $server = Server::findOrFail($id);
         $server->index = $request->get('index');
         $property_values = $request->get('property_value');
+        $pg_id = $request->get('pg');
+        if ($pg_id >= 0 )
+            $server->pg_id = $pg_id;
+        else
+            $server->pg_id = null ;
         foreach ($server->properties as $value){
             $value->value = $property_values[$value->property->name];
             if($value->property->type ==2 ) {
@@ -157,7 +170,7 @@ class ServerController extends Controller
         }
 
         $server->save();
-        return response()->redirectToAction('ServerController@ServiceServers',$server->service->id);
+        return redirect()->action([ServerController::class,'ServiceServers'],$server->service->id);
 
     }
 
